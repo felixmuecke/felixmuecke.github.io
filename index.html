@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Tagebau Heimat</title>
     <link
       rel="stylesheet"
@@ -13,23 +15,24 @@
       integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
       crossorigin=""
     ></script>
+    <link
+      rel="stylesheet"
+      href="https://indestructibletype.com/fonts/Jost.css"
+      type="text/css"
+      charset="utf-8"
+    />
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <script src="./script.js"></script>
   </head>
   <body>
     <div class="container">
       <div id="text">
-        <h1>Stell dir vor die Kohle liegt in deinem Garten</h1>
+        <h3>Stell dir vor die Kohle liegt in deinem Garten</h3>
         <p>
           Der Tagebau Hambach ist gigantisch groß. Wie groß genau, kann man sich
-          kaum vorstellen.
-        </p>
-        <p>
-          Verschiebe die Karte um zu sehen, wie deine Heimat aussehen würde,
-          wenn da Braunkohle läge.
-        </p>
-        <p>
-          Mehr Infos über Ausmaße und Unsinn des Tagebaus beim
+          kaum vorstellen. Verschiebe die Karte um zu sehen, wie deine Heimat
+          aussehen würde, wenn da Braunkohle läge. Mehr Infos über Ausmaße und
+          Unsinn des Tagebaus beim
           <a
             href="https://www.bund-nrw.de/themen/braunkohle/hintergruende-und-publikationen/braunkohlentagebaue/hambach/40-jahre-umweltzerstoerung/"
             >BUND NRW</a
@@ -38,15 +41,19 @@
       </div>
 
       <div id="opacityControl">
-        <h4>Opacity</h4>
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value="100"
-          class="slider"
-          id="opacity"
-        />
+        <div id="opacityLabel">
+          <h4>Opacity</h4>
+        </div>
+        <div id="opacitySlider">
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="100"
+            class="slider"
+            id="opacity"
+          />
+        </div>
       </div>
 
       <div id="map"></div>
