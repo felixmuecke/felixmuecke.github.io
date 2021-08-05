@@ -78,9 +78,11 @@ function initHideTextButton() {
     if (text.style.display == "") {
       text.style.display = "none";
       button.innerHTML = "Show Text";
+      map.invalidateSize();
     } else {
       text.style.display = "";
       button.innerHTML = "Hide Text";
+      map.invalidateSize();
     }
   });
 }
