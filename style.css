@@ -14,10 +14,14 @@ body {
   flex: 1;
   width: 100%;
 }
-
+#text {
+  max-width: 500px;
+}
 #controls {
   display: flex;
   align-items: center;
+  max-width: 500px;
+
   /* align-content: space-between; */
 }
 
@@ -34,6 +38,7 @@ body {
 
 .actionLink {
   width: 80%;
+  max-width: 200px;
   color: white;
   font-weight: bold;
   padding: 5px;
