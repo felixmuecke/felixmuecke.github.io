@@ -17,11 +17,7 @@ window.onload = () => {
   map.addLayer(layer);
 
   marker = new L.Marker(centerStart, {
-    icon: L.icon({
-      iconUrl: "tagebau_transparent.png",
-      iconSize: getIconSize(), // size of the icon
-      iconAnchor: getIconAnchor(), // point of the icon which will correspond to marker's location,
-    }),
+    icon: getIcon(),
   });
   marker.addTo(map);
 
@@ -47,7 +43,6 @@ function resizeIcon() {
 }
 
 function getIconSize() {
-  // TODO: Adapt to final png
   return [(1346 / pixelsPerMeter()) * 10, (896 / pixelsPerMeter()) * 10];
 }
 
@@ -56,13 +51,10 @@ function getIconAnchor() {
 }
 
 function getIcon() {
-  const iconWidth = (1346 / pixelsPerMeter()) * 10;
-  const iconHeight = (896 / pixelsPerMeter()) * 10;
-
   return L.icon({
-    iconUrl: "tagebau_transparent.png",
-    iconSize: [iconWidth, iconHeight], // size of the icon
-    iconAnchor: [iconWidth / 2, iconHeight / 2], // point of the icon which will correspond to marker's location
+    iconUrl: "tagebau.png",
+    iconSize: getIconSize(),
+    iconAnchor: getIconAnchor(),
   });
 }
 
@@ -73,7 +65,6 @@ function moveIconToCenter() {
 function initOpacitySlider() {
   var slider = document.getElementById("opacity");
   slider.oninput = function () {
-    console.log("slider here");
     marker.setOpacity(this.value / 100);
   };
 }
