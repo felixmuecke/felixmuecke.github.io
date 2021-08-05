@@ -30,6 +30,7 @@ window.onload = () => {
   });
 
   initOpacitySlider();
+  initHideTextButton();
 };
 
 function pixelsPerMeter() {
@@ -67,4 +68,19 @@ function initOpacitySlider() {
   slider.oninput = function () {
     marker.setOpacity(this.value / 100);
   };
+}
+
+function initHideTextButton() {
+  // Script to hide/show menu
+  let button = document.querySelector("#hideButton");
+  let text = document.querySelector("#text");
+  button.addEventListener("click", function (event) {
+    if (text.style.display == "") {
+      text.style.display = "none";
+      button.innerHTML = "Show Text";
+    } else {
+      text.style.display = "";
+      button.innerHTML = "Hide Text";
+    }
+  });
 }
