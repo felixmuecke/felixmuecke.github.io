@@ -1,10 +1,12 @@
+const centerStart = [50.911, 6.514];
+
 let map;
 let marker;
 
 window.onload = () => {
   let mapOptions = {
-    center: [51.958, 9.141],
-    zoom: 10,
+    center: centerStart,
+    zoom: 11,
   };
 
   map = new L.map("map", mapOptions);
@@ -14,7 +16,7 @@ window.onload = () => {
   );
   map.addLayer(layer);
 
-  marker = new L.Marker([51.958, 9.141], {
+  marker = new L.Marker(centerStart, {
     icon: L.icon({
       iconUrl: "tagebau_transparent.png",
       iconSize: getIconSize(), // size of the icon

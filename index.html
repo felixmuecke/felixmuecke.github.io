@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Add Map</title>
+    <title>Tagebau Heimat</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
       crossorigin=""
     />
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script
       src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
       integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
@@ -18,27 +17,39 @@
     <script src="./script.js"></script>
   </head>
   <body>
-    <h1>Tagebau in deiner Heimat</h1>
-    <p>Stell dir vor die Scheisse wuerde bei dir zuhause gemacht werden.</p>
-    <p>
-      Mehr infos:
-      <a
-        href="https://www.bund-nrw.de/themen/braunkohle/hintergruende-und-publikationen/braunkohlentagebaue/hambach/40-jahre-umweltzerstoerung/"
-        >hier</a
-      >
-    </p>
+    <div class="container">
+      <div id="text">
+        <h1>Stell dir vor die Kohle liegt in deinem Garten</h1>
+        <p>
+          Der Tagebau Hambach ist gigantisch groß. Wie groß genau, kann man sich
+          kaum vorstellen.
+        </p>
+        <p>
+          Verschiebe die Karte um zu sehen, wie deine Heimat aussehen würde,
+          wenn da Braunkohle läge.
+        </p>
+        <p>
+          Mehr Infos über Ausmaße und Unsinn des Tagebaus beim
+          <a
+            href="https://www.bund-nrw.de/themen/braunkohle/hintergruende-und-publikationen/braunkohlentagebaue/hambach/40-jahre-umweltzerstoerung/"
+            >BUND NRW</a
+          >
+        </p>
+      </div>
 
-    <h4>Opacity</h4>
-    <div class="slidecontainer">
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value="100"
-        class="slider"
-        id="opacity"
-      />
+      <div id="opacityControl">
+        <h4>Opacity</h4>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value="100"
+          class="slider"
+          id="opacity"
+        />
+      </div>
+
+      <div id="map"></div>
     </div>
-    <div id="map"></div>
   </body>
 </html>
