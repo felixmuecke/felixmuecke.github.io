@@ -39,10 +39,10 @@ body {
 .actionLink {
   width: 80%;
   max-width: 200px;
-  color: #000000;
+  color: white;
   font-weight: bold;
   padding: 5px;
   text-align: center;
-  background: #1da64a;
+  background: #157b37;
   margin: auto;
 }
