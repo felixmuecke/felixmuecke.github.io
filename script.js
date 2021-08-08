@@ -12,7 +12,7 @@ window.onload = () => {
   map = new L.map("map", mapOptions);
 
   let layer = new L.TileLayer(
-    "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
   );
   map.addLayer(layer);
 
@@ -44,7 +44,7 @@ function resizeIcon() {
 }
 
 function getIconSize() {
-  return [(1346 / pixelsPerMeter()) * 10, (896 / pixelsPerMeter()) * 10];
+  return [(1346 / pixelsPerMeter()) * 10, (941 / pixelsPerMeter()) * 10];
 }
 
 function getIconAnchor() {
