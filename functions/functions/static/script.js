@@ -1,29 +1,46 @@
-const lat = 49.40095858436034
-const long = 8.672684466722458;
-let map;
-const mapOptions = {
-    center: [lat, long],
-    zoom: 12,
-    zoomControl: false,
-    attributionControl: false
-  };
-
-window.onload = () => {
-    loadMap();
+const defaults = {
+  lat: 50.911,
+  long: 6.514,
+  opacity: 0.4,
+  zoom: 12,
+  width: "600px",
 };
 
-function loadMap () {
-    map = new L.map("map", mapOptions);
+let mapOptions = {
+  zoomControl: false,
+  attributionControl: false,
+};
+
+let map;
+let params = {};
+
+window.onload = () => {
+  parseParams();
+  loadMap();
+};
+
+function loadMap() {
+  mapOptions.center = [
+    params.lat ?? defaults.lat,
+    params.long ?? defaults.long,
+  ];
+  mapOptions.zoom = params.zoom ?? defaults.zoom;
+
+  document.getElementById("map").style.width = params.width ?? defaults.width;
+  document.getElementById("map").style.height = params.width ?? defaults.width;
+  map = new L.map("map", mapOptions);
 
   let layer = new L.TileLayer(
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
   );
   map.addLayer(layer);
 
-  const marker = new L.Marker([lat, long], {
-    icon: getIcon()
+  console.log(mapOptions.center);
+
+  const marker = new L.Marker(mapOptions.center, {
+    icon: getIcon(),
   });
-  marker.setOpacity(0.5);
+  marker.setOpacity(params.opacity ?? 0.5);
   marker.addTo(map);
 }
 
@@ -31,10 +48,6 @@ function pixelsPerMeter() {
   return map
     .containerPointToLatLng([0, 0])
     .distanceTo(map.containerPointToLatLng([1, 0]));
-}
-
-function resizeIcon() {
-  marker.setIcon(getIcon());
 }
 
 function getIconSize() {
@@ -53,6 +66,11 @@ function getIcon() {
   });
 }
 
-
-
-
+function parseParams() {
+  const queryString = window.location.search;
+  const paramPairs = queryString.substr(1).split("&");
+  for (let i = 0; i < paramPairs.length; i++) {
+    const pair = paramPairs[i].split("=");
+    params[pair[0]] = pair[1];
+  }
+}

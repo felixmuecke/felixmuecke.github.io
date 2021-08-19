@@ -2,6 +2,8 @@ const centerStart = [50.911, 6.514];
 
 let map;
 let marker;
+let opacity;
+let downloading = false;
 
 window.onload = () => {
   let mapOptions = {
@@ -21,17 +23,111 @@ window.onload = () => {
   });
   marker.addTo(map);
 
+  L.easyButton("fa-expand", {
+    states: [
+      {
+        stateName: "expand",
+        icon: "fa-expand",
+        title: "Fullscreen",
+        onClick: function (control) {
+          text.style.display = "none";
+          map.invalidateSize();
+          control.state("collapse");
+        },
+      },
+      {
+        stateName: "collapse",
+        icon: "fa-compress",
+        title: "Show Text",
+        onClick: function (control) {
+          text.style.display = "";
+          map.invalidateSize();
+          control.state("expand");
+        },
+      },
+    ],
+  }).addTo(map);
+
+  // Button to jump to current location
+  L.easyButton("fa-map-marker", function (btn, map) {
+    moveToOwnLocation();
+  }).addTo(map);
+
+  // Share Button
+  L.easyButton("fa-camera", function (btn, map) {
+    getSharePic();
+  }).addTo(map);
+
   map.on("zoomend", () => {
     resizeIcon();
+    document.getElementById("downloadContainer").style.display = "none";
   });
 
-  map.on("dragend", () => {
+  map.on("dragend moveend", () => {
     moveIconToCenter();
+    document.getElementById("downloadContainer").style.display = "none";
   });
 
   initOpacitySlider();
-  initHideTextButton();
+  // initShareButton();
+
+  let sliderContainer = document.querySelector("#sliderContainer");
+  sliderContainer.addEventListener("pointerover", (event) => {
+    map.dragging.disable();
+  });
+  sliderContainer.addEventListener("pointerout", (event) => {
+    map.dragging.enable();
+  });
 };
+
+function moveToOwnLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      map.setView([position.coords.latitude, position.coords.longitude]);
+    });
+  }
+}
+
+async function getSharePic() {
+  document.getElementById("downloadContainer").style.display = "none";
+  try {
+    // prevent multiple downloads at the same time
+
+    if (downloading) {
+      return;
+    }
+    downloading = true;
+    document.getElementById("loaderContainer").style.display = "";
+
+    const center = map.getCenter();
+    const width = map.getSize().x;
+    const queryString = `?opacity=${opacity}&lat=${center.lat}&long=${
+      center.lng
+    }&zoom=${map.getZoom()}&width=${width}px`;
+    let image = await window.fetch(
+      `https://us-central1-tagebauheimat.cloudfunctions.net/sharePic${queryString}`
+    );
+    let blob = await image.blob();
+    let url = window.URL.createObjectURL(blob);
+    var download = document.getElementById("download");
+    download.href = url;
+    download.download = "tagebau_share.png";
+
+    let linkClicked = false;
+    download.addEventListener("click", () => (linkClicked = true));
+    download.click();
+    setTimeout(() => {
+      if (!linkClicked) {
+        document.getElementById("downloadContainer").style.display = "";
+      }
+    }, 100);
+    document.getElementById("loaderContainer").style.display = "none";
+  } catch (error) {
+    document.getElementById("loaderContainer").style.display = "none";
+  } finally {
+    downloading = false;
+  }
+}
 
 function pixelsPerMeter() {
   return map
@@ -66,23 +162,7 @@ function moveIconToCenter() {
 function initOpacitySlider() {
   var slider = document.getElementById("opacity");
   slider.oninput = function () {
-    marker.setOpacity(this.value / 100);
+    opacity = this.value / 100;
+    marker.setOpacity(opacity);
   };
-}
-
-function initHideTextButton() {
-  // Script to hide/show menu
-  let button = document.querySelector("#hideButton");
-  let text = document.querySelector("#text");
-  button.addEventListener("click", function (event) {
-    if (text.style.display == "") {
-      text.style.display = "none";
-      button.innerHTML = "Show Text";
-      map.invalidateSize();
-    } else {
-      text.style.display = "";
-      button.innerHTML = "Hide Text";
-      map.invalidateSize();
-    }
-  });
 }
