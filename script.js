@@ -1,5 +1,7 @@
 const centerStart = [50.911, 6.514];
 
+// https://nominatim.openstreetmap.org/search?q=69118+germany&format=json
+
 let map;
 let marker;
 let opacity;
@@ -78,6 +80,19 @@ window.onload = () => {
   sliderContainer.addEventListener("pointerout", (event) => {
     map.dragging.enable();
   });
+
+  const searchButton = document.getElementById("searchButton");
+  const postcodeInput = document.getElementById("postcodeInput");
+
+  postcodeInput.addEventListener("input", function (event) {
+    const value = this.value;
+    if (value && value.length == 5) {
+      searchPostcode(value);
+      searchButton.disabled = false;
+    } else {
+      searchButton.disabled = true;
+    }
+  });
 };
 
 function moveToOwnLocation() {
@@ -86,6 +101,21 @@ function moveToOwnLocation() {
       map.setView([position.coords.latitude, position.coords.longitude]);
     });
   }
+}
+
+async function searchPostcode(postcode) {
+  if (!postcode) {
+    postcode = document.getElementById("postcodeInput").value;
+    console.log(postcode);
+  }
+  const response = await window.fetch(
+    `https://nominatim.openstreetmap.org/search?postalcode=${postcode}&country=germany&format=json`
+  );
+  const responseJson = await response.json();
+  console.log(responseJson);
+  const coords = [responseJson[0].lat, responseJson[0].lon];
+  map.panTo(coords);
+  console.log(coords);
 }
 
 async function getSharePic() {
