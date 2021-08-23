@@ -60,7 +60,6 @@ body {
   border-radius: 50%;
   background: #000000;
   cursor: pointer;
-  transform: rotate(270deg);
 }
 
 .slider::-moz-range-thumb {
@@ -69,7 +68,6 @@ body {
   border-radius: 50%;
   background: #000000;
   cursor: pointer;
-  transform: rotate(270deg);
 }
 
 .loader {
@@ -96,6 +94,25 @@ body {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+#shareButton {
+  animation: swell 6s ease-in-out infinite;
+}
+
+@keyframes swell {
+  0% {
+    background-color: #f3f3f3;
+  }
+  50% {
+    background-color: #f3f3f3;
+  }
+  75% {
+    background-color: #157b37;
+  }
+  100% {
+    background-color: #f3f3f3;
   }
 }
 
@@ -135,8 +152,7 @@ body {
 
 #postcodeInput {
   font-size: larger;
-  /* padding: 0; */
   border: none;
-  height: 90%;
+  height: 70%;
   width: 100%;
 }

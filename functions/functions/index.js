@@ -1,16 +1,10 @@
 import functions from "firebase-functions";
-// import puppeteer from "puppeteer";
 import chromium from "chrome-aws-lambda";
 
 export const sharePic = functions
-  .runWith({ memory: "2GB" })
+  .runWith({ memory: "1GB" })
   .https.onRequest(async (req, res) => {
     const queryString = req.url.split("?")[1];
-
-    // const browser = await puppeteer.launch({
-    //   headless: true,
-    //   args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    // });
 
     const browser = await chromium.puppeteer.launch({
       args: chromium.args,

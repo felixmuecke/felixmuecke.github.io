@@ -50,9 +50,8 @@
             rel="noopener"
             >Tagebau Hambach</a
           >
-          ist gigantisch groß. Wie groß genau, kann man sich kaum vorstellen.
-          Verschiebe die Karte um zu sehen, wie deine Heimat aussehen würde,
-          wenn da Braunkohle läge.
+          ist gigantisch groß. Und es soll noch lange weiter gegraben werden.
+          Schau dir an wie deine Heimat aussehen würde, wenn da Braunkohle läge.
         </p>
         <a
           href="https://fridaysforfuture.de/allefuersklima/"
@@ -80,7 +79,13 @@
 
         <div id="searchContainer">
           <label for="postcode">PLZ: </label>
-          <input type="text" id="postcodeInput" name="postcode" />
+          <input
+            type="text"
+            pattern="[0-9]*"
+            inputmode="numeric"
+            id="postcodeInput"
+            name="postcode"
+          />
 
           <button id="searchButton" disabled onClick="searchPostcode();">
             <i class="fa fa-search" aria-hidden="true"></i>
@@ -93,7 +98,7 @@
       </div>
       <div id="downloadContainer" style="display: none">
         <div class="loader-done"></div>
-        <div><span>Fertig: </span><a id="download">Download Screenshot</a></div>
+        <div><span>Fertig: </span><a id="download">Share_Me.png</a></div>
       </div>
     </div>
   </body>
