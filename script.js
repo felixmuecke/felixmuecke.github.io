@@ -28,7 +28,7 @@ window.onload = () => {
   initFullscreenButton();
   initOpacitySlider();
   initLocateButton();
-  initShareButton();
+//   initShareButton();
 
   map.on("zoomend", () => {
     resizeIcon();
